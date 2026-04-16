@@ -19,7 +19,7 @@ echo -ne "[INFO]\tChecking AppID ${STEAM_APPID} for updates\n"
 ${EMULATOR} ${STEAMCMD_BIN} \
     +force_install_dir ${SRCDS_ROOT} \
     +login anonymous \
-    +app_update ${STEAM_APPID} \
+    +app_update ${STEAM_APPID} validate \
     +quit
 
 echo -ne "[INFO]\tExecuting server binary with the following flags:\n"
