@@ -37,7 +37,7 @@ fi
 
 DIST="noble"
 TAG="${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${DOCKER_PROJECT}:${STEAMCMD_VERSION}"
-PLATFORM="linux/${ARCH}"
+PLATFORM="linux/amd64,linux/arm64"
 
 echo -ne "[INFO]\tBuilding for ${DIST} on ${PLATFORM}\n"
 docker buildx build --platform ${PLATFORM} -t ${TAG} . || exit 1

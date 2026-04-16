@@ -24,4 +24,6 @@ ${EMULATOR} ${STEAMCMD_BIN} \
 
 echo -ne "[INFO]\tExecuting server binary with the following flags:\n"
 echo -ne "[INFO]\t${SRCDS_ARGS}\n"
-exec ${EMULATOR} ${SRCDS_BIN} -console ${SRCDS_ARGS}
+exec /usr/bin/screen -S srcds -D -m \
+    ${EMULATOR} ${SRCDS_BIN} \
+    -console ${SRCDS_ARGS}

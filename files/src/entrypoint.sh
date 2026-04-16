@@ -2,6 +2,11 @@
 
 . /usr/bin/setdockerenv
 
+if [[ -z "$(tty)" ]]; then
+    echo -ne "[ERR]\tNo tty detected - please add `tty: true` to your compose\n"
+    exit 1
+fi
+
 if [[ ! -d "${SRCDS_ROOT}" ]]; then
     echo -ne "[ERR]\t${SRCDS_ROOT} not found - please mount a volume here\n"
     exit 1
