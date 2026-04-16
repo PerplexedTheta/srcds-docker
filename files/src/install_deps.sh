@@ -6,8 +6,7 @@ if [[ "${TARGETARCH}" == "arm64" ]]; then
 fi
 
 apt update
-apt install -y screen \
-    libc6 \
+apt install -y libc6 \
     libcrypt1 \
     libgcc-s1 \
     libgl1 \
@@ -21,8 +20,7 @@ apt install -y screen \
     libxcb-dri3-0 \
     libxcb1 \
     libxi6 \
-    libxinerama1 \
-    xz-utils || exit 1
+    libxinerama1 || exit 1
 
 dpkg --add-architecture ${ARCH_32} || exit 1
 

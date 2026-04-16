@@ -30,6 +30,7 @@ RUN /usr/bin/apt update && \
         gzip \
         locales \
         passwd \
+        screen \
         sed \
         tar \
         wget \
@@ -51,19 +52,7 @@ RUN /usr/bin/apt update && \
     /usr/bin/rm -rf /home/ubuntu && \
     /usr/sbin/groupadd -g ${USER_GID} steam && \
     /usr/sbin/useradd -u ${USER_UID} -g ${USER_GID} -m steam && \
-    su steam -c \
-        . /usr/bin/setdockerenv && \
-        cd ${USER_HOME} && \
-        /usr/bin/cp -r /usr/games/steam ${STEAMCMD_ROOT} && \
-        cd ${STEAMCMD_ROOT} && \
-        ${EMULATOR} ${STEAMCMD_ROOT}/steamcmd.sh +quit && \
-        /usr/bin/ln -s ${STEAMCMD_ROOT}/linux32/steamclient.so ${STEAMCMD_ROOT}/linux32/steamservice.so && \
-        /usr/bin/ln -s ${STEAMCMD_ROOT}/linux64/steamclient.so ${STEAMCMD_ROOT}/linux64/steamservice.so && \
-        /usr/bin/mkdir -p ${USER_HOME}/.steam/sdk32 && \
-        /usr/bin/ln -s ${STEAMCMD_ROOT}/linux32/steamclient.so ${USER_HOME}/.steam/sdk32/steamclient.so && \
-        /usr/bin/mkdir -p ${USER_HOME}/.steam/sdk64 && \
-        /usr/bin/ln -s ${STEAMCMD_ROOT}/linux64/steamclient.so ${USER_HOME}/.steam/sdk64/steamclient.so && \
-        exit 0 && \
+    su steam -c /bin/bash -c '/tmp/payload/setup_steamcmd.sh' && \
     /usr/bin/ln -s ${STEAMCMD_ROOT}/linux32/steamclient.so ${I386_LIB_ROOT}/steamclient.so && \
     /usr/bin/ln -s ${STEAMCMD_ROOT}/linux64/steamclient.so ${AMD64_LIB_ROOT}/steamclient.so && \
     /usr/bin/rm -rf /tmp/payload && \
