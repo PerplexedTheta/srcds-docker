@@ -26,7 +26,13 @@ apt install -y screen \
 
 dpkg --add-architecture ${ARCH_32} || exit 1
 
-apt update
+if [[ "${ARCH_32}" == "i386" ]]; then
+    apt update
+elif [[ "${ARCH_32}" == "armhf" ]]; then
+    apt update
+    apt install -y libtcmalloc-minimal4t64:armhf
+fi
+
 apt install -y libc6:${ARCH_32} \
     libcrypt1:${ARCH_32} \
     libgcc-s1:${ARCH_32} \
@@ -35,7 +41,6 @@ apt install -y libc6:${ARCH_32} \
     libgpg-error0:${ARCH_32} \
     libnm0:${ARCH_32} \
     libstdc++6:${ARCH_32} \
-    libtcmalloc-minimal4t64:${ARCH_32} \
     libudev1:${ARCH_32} \
     libva-x11-2:${ARCH_32} \
     libva2:${ARCH_32} \
