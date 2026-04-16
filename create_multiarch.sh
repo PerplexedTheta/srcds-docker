@@ -36,13 +36,8 @@ if [[ -z "${DOCKER_PROJECT}" ]]; then
 fi
 
 DIST="noble"
-TAG="${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${DOCKER_PROJECT}:${STEAMCMD_VERSION}-${ARCH}"
-PLATFORM="linux/${ARCH}"
+TAG="${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${DOCKER_PROJECT}:${STEAMCMD_VERSION}"
 
-echo -ne "[INFO]\tBuilding for ${DIST} on ${PLATFORM}\n"
-docker buildx build --platform ${PLATFORM} -t ${TAG} . || exit 1
+echo -ne "[INFO]\tMerging for ${DIST} on amd64 and arm64\n"
+docker buildx imagetools create -t ${TAG} ${TAG}-amd64 ${TAG}-arm64
 echo -ne "[INFO]\tSuccess! Tagged as ${TAG}\n"
-
-echo -ne "[INFO]\tPushing tag ${TAG}\n"
-docker push ${TAG} || exit 1
-echo -ne "[INFO]\tSuccess! Pushed ${TAG}\n"
